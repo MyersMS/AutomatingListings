@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+# ---------------------------------------------------------------------------
+# Raster2Poly.py
+# Description: 
+# ---------------------------------------------------------------------------
+
+# Import arcpy module
+import arcpy
+
+
+# Local variables:
+A9R6ppewk_nvyboq_9ao_jpg = "A9R6ppewk_nvyboq_9ao.jpg"
+Output_signature_file__3_ = ""
+concho3_tif = "concho3.tif"
+iso2 = "C:\\Users\\gcara\\OneDrive\\PLS\\GDBs\\ras.gdb\\iso2"
+rc2 = "C:\\Users\\gcara\\OneDrive\\PLS\\GDBs\\ras.gdb\\rc2"
+poly2 = "C:\\Users\\gcara\\OneDrive\\PLS\\GDBs\\ras.gdb\\poly2"
+A9Rjks497_gxzdkv_7zk_png = "A9Rjks497_gxzdkv_7zk.png"
+A9Rs5nfzf_1gq4gh4_52c_jpg = "A9Rs5nfzf_1gq4gh4_52c.jpg"
+A9Rs2jecc_nvybot_9ao_jpg = "A9Rs2jecc_nvybot_9ao.jpg"
+
+# Process: Iso Cluster Unsupervised Classification (3)
+arcpy.gp.IsoClusterUnsupervisedClassification_sa("A9R6ppewk_nvyboq_9ao.jpg", "2", iso2, "20", "10", Output_signature_file__3_)
+
+# Process: Reclassify (3)
+arcpy.gp.Reclassify_sa(iso2, "Value", "1 1;2 NODATA;3 NODATA", rc2, "DATA")
+
+# Process: Raster to Polygon (3)
+arcpy.RasterToPolygon_conversion(rc2, poly2, "NO_SIMPLIFY", "", "SINGLE_OUTER_PART", "")
+
