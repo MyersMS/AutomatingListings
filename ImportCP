@@ -1,0 +1,41 @@
+# -*- coding: utf-8 -*-
+# ---------------------------------------------------------------------------
+# ImportCPModel.py
+# Description: 
+# ---------------------------------------------------------------------------
+
+# Import arcpy module
+import arcpy
+
+# Load required toolboxes
+arcpy.ImportToolbox("Model Functions")
+
+
+# Local variables:
+CPupdate = "C:\\Users\\gcara\\Desktop\\CPupdate"
+Name = "WTOffshore_129794_Company_02_06_17"
+v88Energy_151124_Company_10_12_17_shp = "C:\\Users\\gcara\\Desktop\\CPupdate\\WTOffshore_129794_Company_02_06_17.shp"
+v88Energy_151124_Company_10_12_17_shp__2_ = v88Energy_151124_Company_10_12_17_shp
+v88Energy_151124_Company_10_12_17_shp__3_ = v88Energy_151124_Company_10_12_17_shp__2_
+v88Energy_151124_Company_10_12_17_shp__5_ = v88Energy_151124_Company_10_12_17_shp__3_
+v88Energy_151124_Company_10_12_17_shp__4_ = v88Energy_151124_Company_10_12_17_shp__5_
+v88Energy_151124_Company_10_12_17_shp__6_ = v88Energy_151124_Company_10_12_17_shp__4_
+
+# Process: Iterate Feature Classes
+arcpy.IterateFeatureClasses_mb(CPupdate, "", "", "NOT_RECURSIVE")
+
+# Process: Add Field
+arcpy.AddField_management(v88Energy_151124_Company_10_12_17_shp, "FILENAME", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", "")
+
+# Process: Calculate Field
+arcpy.CalculateField_management(v88Energy_151124_Company_10_12_17_shp__2_, "FILENAME", "\"%Name%\"", "VB", "")
+
+# Process: Calculate Field (2)
+arcpy.CalculateField_management(v88Energy_151124_Company_10_12_17_shp__3_, "FILENAME", "!FILENAME!.replace(\".shp\", \"\")", "PYTHON", "")
+
+# Process: Add Field (2)
+arcpy.AddField_management(v88Energy_151124_Company_10_12_17_shp__5_, "CompanyID", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", "")
+
+# Process: Calculate Field (3)
+arcpy.CalculateField_management(v88Energy_151124_Company_10_12_17_shp__4_, "CompanyID", "splitText(!FILENAME!)", "PYTHON_9.3", "def splitText(FILENAME):\\n  import re\\n  return re.split('_|_', FILENAME)[1]")
+
