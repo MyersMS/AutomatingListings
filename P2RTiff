@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+# ---------------------------------------------------------------------------
+# tiffModel.py
+# Description: 
+# ---------------------------------------------------------------------------
+
+# Import arcpy module
+import arcpy
+
+# Load required toolboxes
+arcpy.ImportToolbox("Model Functions")
+
+
+# Local variables:
+CPrequestType1 = "CPrequestType1"
+I_CPrequestType1_FILENAME = CPrequestType1
+v_Value__tif = "C:\\Users\\gcara\\OneDrive\\PLS\\GDBs\\Tiffs\\%Value%.tif"
+Value = "Range_122372_Company_07_03_17"
+
+# Process: Iterate Feature Selection
+arcpy.IterateFeatureSelection_mb(CPrequestType1, "FILENAME #", "false")
+
+# Process: Polygon to Raster
+arcpy.PolygonToRaster_conversion(I_CPrequestType1_FILENAME, "FILENAME", v_Value__tif, "CELL_CENTER", "NONE", "0.001")
+
