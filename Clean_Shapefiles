@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+# ---------------------------------------------------------------------------
+# Clean_Shapefiles.py
+# Description: 
+# ---------------------------------------------------------------------------
+
+# Import arcpy module
+import arcpy
+
+# Load required toolboxes
+arcpy.ImportToolbox("Model Functions")
+
+
+# Local variables:
+CleanMA_TXmaster = "CleanMA_TXmaster"
+I_CleanMA_TXmaster_FILENAME = CleanMA_TXmaster
+Value = "ZAR_THR_08_24_15_49975"
+TXgridCounty = "TXgridCounty"
+v_Value_ = "C:\\PLS\\CleanTXMA.gdb\\%Value%"
+MA_OneLayer = "MA_OneLayer"
+MA_TxOkNmCoArLaKs = "MA_TxOkNmCoArLaKs"
+GridMergeTX_plss = "GridMergeTX_plss"
+
+# Process: Iterate Feature Selection
+arcpy.IterateFeatureSelection_mb(CleanMA_TXmaster, "FILENAME #", "false")
+
+# Process: Spatial Join
+arcpy.SpatialJoin_analysis(TXgridCounty, I_CleanMA_TXmaster_FILENAME, v_Value_, "JOIN_ONE_TO_MANY", "KEEP_COMMON", "COUNTY \"COUNTY\" true true false 100 Text 0 0 ,First,#,TXgridCounty,COUNTY,-1,-1;STATE \"STATE\" true true false 2 Text 0 0 ,First,#,TXgridCounty,STATE,-1,-1;FIPS \"FIPS\" true true false 10 Text 0 0 ,First,#,TXgridCounty,FIPS,-1,-1;UIDX \"UIDX\" true true false 10 Text 0 0 ,First,#,TXgridCounty,UIDX,-1,-1;SURVEY \"SURVEY\" true true false 32 Text 0 0 ,First,#,TXgridCounty,SURVEY,-1,-1;BLOCK \"BLOCK\" true true false 10 Text 0 0 ,First,#,TXgridCounty,BLOCK,-1,-1;SECTION \"SECTION\" true true false 8 Text 0 0 ,First,#,TXgridCounty,SECTION,-1,-1;L4SURNAM \"L4SURNAM\" true true false 32 Text 0 0 ,First,#,TXgridCounty,L4SURNAM,-1,-1;L5SFORMF \"L5SFORMF\" true true false 9 Text 0 0 ,First,#,TXgridCounty,L5SFORMF,-1,-1;AREA \"AREA\" true true false 8 Double 0 0 ,First,#,TXgridCounty,AREA,-1,-1;Shape_Length \"Shape_Length\" false true true 8 Double 0 0 ,First,#,TXgridCounty,Shape_Length,-1,-1;Shape_Area \"Shape_Area\" false true true 8 Double 0 0 ,First,#,TXgridCounty,Shape_Area,-1,-1;ABSTRACT \"ABSTRACT\" true true false 10 Text 0 0 ,First,#,TXgridCounty,ABSTRACT,-1,-1;DEALID \"DEALID\" true true false 5 Text 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,DEALID,-1,-1;ANNDATE \"ANNDATE\" true true false 8 Date 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,ANNDATE,-1,-1;BUYERS \"BUYERS\" true true false 254 Text 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,BUYERS,-1,-1;MABuyerID \"MABuyerID\" true true false 50 Text 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,MABuyerID,-1,-1;SELLERS \"SELLERS\" true true false 254 Text 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,SELLERS,-1,-1;MASellerID \"MASellerID\" true true false 100 Text 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,MASellerID,-1,-1;DEALVALUE \"DEALVALUE\" true true false 8 Double 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,DEALVALUE,-1,-1;REGION \"REGION\" true true false 50 Text 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,REGION,-1,-1;SUBREGION \"SUBREGION\" true true false 50 Text 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,SUBREGION,-1,-1;PLAY \"PLAY\" true true false 50 Text 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,PLAY,-1,-1;DOLBOEPD \"DOLBOEPD\" true true false 8 Double 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,DOLBOEPD,-1,-1;DOLPROVBOE \"DOLPROVBOE\" true true false 8 Double 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,DOLPROVBOE,-1,-1;DOLACRE \"DOLACRE\" true true false 8 Double 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,DOLACRE,-1,-1;DEALTYPE \"DEALTYPE\" true true false 30 Text 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,DEALTYPE,-1,-1;HYDROCARB \"HYDROCARB\" true true false 20 Text 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,HYDROCARB,-1,-1;FILENAME \"FILENAME\" true true false 100 Text 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,FILENAME,-1,-1;UPDATED \"UPDATED\" true true false 8 Date 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,UPDATED,-1,-1;Shape_Length \"Shape_Length\" false true true 8 Double 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,Shape_Length,-1,-1;Shape_Area \"Shape_Area\" false true true 8 Double 0 0 ,First,#,I_CleanMA_TXmaster_FILENAME,Shape_Area,-1,-1", "HAVE_THEIR_CENTER_IN", "-100 Feet", "")
+
