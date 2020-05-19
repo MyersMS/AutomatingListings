@@ -1,0 +1,87 @@
+# -*- coding: utf-8 -*-
+# ---------------------------------------------------------------------------
+# DealsForSaleModel.py
+# Description: 
+# ---------------------------------------------------------------------------
+
+# Import arcpy module
+import arcpy
+
+# Load required toolboxes
+arcpy.ImportToolbox("Model Functions")
+
+
+# Local variables:
+DealsForSale = "C:\\Users\\Myers\\MapIndex\\DailyShp_PreUpdate\\DealsForSale"
+Name = "WPX_PP1537DV_11_13_17_DFS_Shapefile_42925"
+FeatureClass__5_ = "C:\\Users\\Myers\\MapIndex\\DailyShp_PreUpdate\\DealsForSale\\WPX_PP1537DV_11_13_17_DFS_Shapefile_42925\\WPX_PP1537DV_11_13_17_DFS_Shapefile_42925.shp"
+FeatureClass = FeatureClass__5_
+FeatureClass__3_ = FeatureClass
+FeatureClass__4_ = FeatureClass__3_
+FeatureClass__7_ = FeatureClass__4_
+FeatureClass__6_ = FeatureClass__7_
+Marlin_PP9494DV_10_12_17_DFS_Shapefile_42788_shp = FeatureClass__6_
+FeatureClass__2_ = Marlin_PP9494DV_10_12_17_DFS_Shapefile_42788_shp
+FeatureClass__9_ = FeatureClass__2_
+FeatureClass__10_ = FeatureClass__9_
+FeatureClass__8_ = FeatureClass__10_
+FeatureClass__12_ = FeatureClass__8_
+FeatureClass__11_ = FeatureClass__12_
+FeatureClass__14_ = FeatureClass__11_
+FeatureClass__13_ = FeatureClass__14_
+MasterDealsForSale_Update__4_ = FeatureClass__13_
+MasterDealsForSale_Update__3_ = "C:\\Users\\Myers\\MapIndex\\MasterGDB\\FinalOutputs.gdb\\MasterDealsForSale_Update"
+MasterDealsForSale_Update__2_ = MasterDealsForSale_Update__4_
+MasterDealsForSale_Update = "C:\\Users\\georgec\\OneDrive\\PLS\\MasterGDB\\FinalOutputs.gdb\\MasterDealsForSale_Update"
+
+# Process: Iterate Feature Classes
+arcpy.IterateFeatureClasses_mb(DealsForSale, "", "", "RECURSIVE")
+
+# Process: Add Field
+arcpy.AddField_management(FeatureClass__5_, "FILENAME", "TEXT", "", "", "", "FILENAME", "NULLABLE", "NON_REQUIRED", "")
+
+# Process: Calculate Field
+arcpy.CalculateField_management(FeatureClass, "FILENAME", "\"%Name%\"", "VB", "")
+
+# Process: Calculate Field (2)
+arcpy.CalculateField_management(FeatureClass__3_, "FILENAME", "!FILENAME!.replace(\"DFS_Shapefile_\", \"\").replace(\".shp\", \"\")", "PYTHON_9.3", "")
+
+# Process: Add Field (2)
+arcpy.AddField_management(FeatureClass__4_, "LISTING", "TEXT", "", "", "10", "LISTING", "NULLABLE", "NON_REQUIRED", "")
+
+# Process: Calculate Field (3)
+arcpy.CalculateField_management(FeatureClass__7_, "LISTING", "Right( [FILENAME], 5 )", "VB", "")
+
+# Process: Add Field (3)
+arcpy.AddField_management(FeatureClass__6_, "ListingCod", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", "")
+
+# Process: Calculate Field (5)
+arcpy.CalculateField_management(Marlin_PP9494DV_10_12_17_DFS_Shapefile_42788_shp, "ListingCod", "splitText(!FILENAME!)", "PYTHON_9.3", "def splitText(FILENAME):\\n  import re\\n  return re.split(' _|_', FILENAME)[1]")
+
+# Process: Add Field (4)
+arcpy.AddField_management(FeatureClass__2_, "ListDate", "TEXT", "", "", "", "", "NULLABLE", "NON_REQUIRED", "")
+
+# Process: Calculate Field (6)
+arcpy.CalculateField_management(FeatureClass__9_, "ListDate", "Right( [FILENAME], 14 )", "VB", "")
+
+# Process: Calculate Field (7)
+arcpy.CalculateField_management(FeatureClass__10_, "ListDate", "Left( [ListDate], 8 )", "VB", "")
+
+# Process: Calculate Field (8)
+arcpy.CalculateField_management(FeatureClass__8_, "ListDate", "!ListDate!.replace(\"_\", \"/\")", "PYTHON_9.3", "")
+
+# Process: Add Field (5)
+arcpy.AddField_management(FeatureClass__12_, "listing_da", "DATE", "", "", "", "", "NULLABLE", "NON_REQUIRED", "")
+
+# Process: Calculate Field (9)
+arcpy.CalculateField_management(FeatureClass__11_, "listing_da", "[ListDate]", "VB", "")
+
+# Process: Delete Field
+arcpy.DeleteField_management(FeatureClass__14_, "ListDate")
+
+# Process: Append
+arcpy.Append_management("C:\\Users\\Myers\\MapIndex\\DailyShp_PreUpdate\\DealsForSale\\WPX_PP1537DV_11_13_17_DFS_Shapefile_42925\\WPX_PP1537DV_11_13_17_DFS_Shapefile_42925.shp", MasterDealsForSale_Update__3_, "NO_TEST", "FILENAME \"FILENAME\" true true false 254 Text 0 0 ,First,#,C:\\Users\\Myers\\MapIndex\\DailyShp_PreUpdate\\DealsForSale\\FeatureClass,FILENAME,-1,-1;listing_da \"listing_da\" true true false 8 Date 0 0 ,First,#,C:\\Users\\Myers\\MapIndex\\DailyShp_PreUpdate\\DealsForSale\\FeatureClass,listing_da,-1,-1;ListingCod \"ListingCod\" true true false 254 Text 0 0 ,First,#,C:\\Users\\Myers\\MapIndex\\DailyShp_PreUpdate\\DealsForSale\\FeatureClass,ListingCod,-1,-1;seller \"seller\" true true false 254 Text 0 0 ,First,#;agent_brok \"agent_brok\" true true false 254 Text 0 0 ,First,#;Oil_Gas \"Oil_Gas\" true true false 254 Text 0 0 ,First,#;Onshore_Of \"Onshore_Of\" true true false 254 Text 0 0 ,First,#;UPDATED \"UPDATED\" true true false 8 Date 0 0 ,First,#;CompanyID \"CompanyID\" true true false 10 Text 0 0 ,First,#;Shape_Length \"Shape_Length\" false true true 8 Double 0 0 ,First,#;Shape_Area \"Shape_Area\" false true true 8 Double 0 0 ,First,#;LISTING \"LISTING\" true true false 10 Text 0 0 ,First,#,C:\\Users\\Myers\\MapIndex\\DailyShp_PreUpdate\\DealsForSale\\FeatureClass,LISTING,-1,-1;GrossAcres \"GrossAcres\" true true false 8 Double 0 0 ,First,#", "")
+
+# Process: Calculate Field (4)
+arcpy.CalculateField_management(MasterDealsForSale_Update__4_, "UPDATED", "Date (  )", "VB", "")
+
