@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+# ---------------------------------------------------------------------------
+# Poly2Raster2Poly.py
+# Description: 
+# ---------------------------------------------------------------------------
+
+# Import arcpy module
+import arcpy
+
+# Load required toolboxes
+arcpy.ImportToolbox("Model Functions")
+
+
+# Local variables:
+MA2Raster_gdb = "C:\\Users\\gcara\\OneDrive\\PLS\\GDBs\\MA2Raster.gdb"
+Blu_Qui_01_23_16_49783 = "C:\\Users\\gcara\\OneDrive\\PLS\\GDBs\\MA2Raster.gdb\\Boa_Mem_06_20_16_57697"
+v_Name_ = "C:\\Users\\gcara\\OneDrive\\PLS\\GDBs\\ras.gdb\\%Name%"
+v_Name___2_ = "C:\\Users\\gcara\\OneDrive\\PLS\\GDBs\\Ras2Poly.gdb\\%Name%"
+Name = "Boa_Mem_06_20_16_57697"
+
+# Process: Iterate Feature Classes
+arcpy.IterateFeatureClasses_mb(MA2Raster_gdb, "", "", "NOT_RECURSIVE")
+
+# Process: Polygon to Raster
+arcpy.PolygonToRaster_conversion(Blu_Qui_01_23_16_49783, "OBJECTID", v_Name_, "CELL_CENTER", "NONE", "0.004")
+
+# Process: Raster to Polygon (3)
+arcpy.RasterToPolygon_conversion(v_Name_, v_Name___2_, "NO_SIMPLIFY", "Value", "SINGLE_OUTER_PART", "")
+
