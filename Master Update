@@ -1,9 +1,5 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
-# ---------------------------------------------------------------------------
-# CPind.py
-# Usage: CPind <MasterCompanyPortfolios_Update> 
-# Description: 
-# ---------------------------------------------------------------------------
 
 # Import arcpy module
 import arcpy
